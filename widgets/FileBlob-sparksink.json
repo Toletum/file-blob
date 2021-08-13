@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "spec-version": "1.4"
+  },
+  "display-name": "FileBlob",
+  "configuration-groups": [
+    {
+      "label": "FileBlob",
+      "properties": [
+        {
+          "widget-type": "textbox",
+          "label": "Destination Path",
+          "name": "destinationPath",
+          "widget-attributes": {
+            "placeholder": "destinationPath"
+          }
+        }
+      ]
+    }
+  ]
+}
