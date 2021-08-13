@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -62,20 +63,11 @@ public class FileBlob extends SparkSink<StructuredRecord> {
 
     List data = javaRDD.collect();
 
+    Path destination = new Path(config.destinationPath);
+    Configuration conf = new Configuration();
+    FileSystem fileSystem = destination.getFileSystem(conf);
 
-    /*
-    for(int i = 0; i < data.size(); i++) {
-      record = (StructuredRecord)data.get(i);
-
-      LOG.info("{} -> {}", "TEST", record.get("body"));
-    }
-*/
-
-    FileSystem fileSystem = FileSystem.get(new Configuration());
-
-    Path destinationPath = fileSystem.makeQualified(new Path(config.destinationPath));
-
-    try (OutputStream output = fileSystem.create(destinationPath)) {
+    try (OutputStream output = fileSystem.create(destination)) {
       for(int i = 0; i < data.size(); i++) {
         record = (StructuredRecord)data.get(i);
 
